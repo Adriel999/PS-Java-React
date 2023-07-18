@@ -29,6 +29,12 @@ public class TransferenciaController {
     public TransferenciaModel obterTransferenciaPorId(@PathVariable Long id) {
         return transferenciaService.obterTransferenciaPorId(id);
     }
+    
+    @GetMapping("/operador/{nomeOperador}")
+    public List<TransferenciaModel> obterTransferenciasPorOperador(@PathVariable String nomeOperador) {
+        return transferenciaService.obterTransferenciasPorOperador(nomeOperador);
+    }
+
 
     @PostMapping
     public TransferenciaModel criarTransferencia(@RequestBody TransferenciaModel transferencia) {

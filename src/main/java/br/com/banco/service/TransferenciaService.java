@@ -38,5 +38,11 @@ public class TransferenciaService {
         TransferenciaModel transferencia = obterTransferenciaPorId(id);
         transferenciaRepository.delete(transferencia);
     }
+
+    public List<TransferenciaModel> obterTransferenciasPorOperador(String nomeOperador) {
+        return transferenciaRepository.findByNomeOperador(nomeOperador);
+    }
+
+
 }
 
