@@ -18,12 +18,18 @@ public class ContaModel {
 	@Column(name = "nome_responsavel", nullable = false)
 	private String nomeResponsavel;
 
+	//Construtores
+	public ContaModel() {
+		
+	}
+	
 	public ContaModel(Long id, String nomeResponsavel) {
 		super();
 		this.id = id;
 		this.nomeResponsavel = nomeResponsavel;
 	}
 	
+	//Getters e Setters
 	public Long getId() {
 		return id;
 	}

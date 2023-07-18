@@ -32,7 +32,11 @@ public class TransferenciaModel {
 	@Column(name = "data_transferencia", nullable = false)
     private String dataTransferencia;
 
-    //Construtor
+    //Construtores
+	public TransferenciaModel() {
+		
+	}
+	
 	public TransferenciaModel(Long id, ContaModel contaId, String nomeOperador, double valor, String dataTransferencia) {
 		super();
 		this.id = id;
