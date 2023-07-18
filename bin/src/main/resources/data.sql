@@ -1,13 +1,13 @@
 CREATE TABLE conta
 (
-    id_conta SERIAL NOT NULL PRIMARY KEY,
+    id_conta IDENTITY NOT NULL PRIMARY KEY,
     nome_responsavel VARCHAR(50) NOT NULL
 );
 
 
-CREATE TABLE transferencia 
+CREATE TABLE transferencia
 (
-    id SERIAL NOT NULL PRIMARY KEY,
+    id IDENTITY NOT NULL PRIMARY KEY,
     data_transferencia TIMESTAMP WITH TIME ZONE NOT NULL,
     valor NUMERIC (20,2) NOT NULL,
     tipo VARCHAR(15) NOT NULL,
