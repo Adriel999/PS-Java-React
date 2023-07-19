@@ -17,7 +17,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { format } from "date-fns"; // Importe a função de formatação de data
+import { format } from "date-fns";
 import ModalComp from "./components/ModalComp";
 import axios from "axios";
 
@@ -25,8 +25,8 @@ const App = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState([]);
   const [dataEdit, setDataEdit] = useState({});
-  const [filterStartDate, setFilterStartDate] = useState("");
-  const [filterEndDate, setFilterEndDate] = useState("");
+  const [dataInicio, setDataInicio] = useState("");
+  const [dataFim, setDataFim] = useState("");
   const [filterOperator, setFilterOperator] = useState("");
   const isMobile = useBreakpointValue({
     base: true,
@@ -38,8 +38,8 @@ const App = () => {
       try {
         let url = "http://localhost:8080/api/transferencia";
 
-        if (filterStartDate && filterEndDate) {
-          url += `?startDate=${filterStartDate}&endDate=${filterEndDate}`;
+        if (dataInicio && dataFim) {
+          url += `?startDate=${dataInicio}&endDate=${dataFim}`;
         } else if (filterOperator) {
           url = `http://localhost:8080/api/transferencia/operador/${filterOperator}`; 
         }
@@ -52,7 +52,7 @@ const App = () => {
     };
 
     fetchData();
-  }, [filterStartDate, filterEndDate, filterOperator]);
+  }, [dataInicio, dataFim, filterOperator]);
 
   const handleRemove = async (id) => {
     try {
@@ -65,12 +65,25 @@ const App = () => {
   };
 
   const handleSearch = () => {
-    if ((!filterStartDate && filterEndDate) || (filterStartDate && !filterEndDate)) {
+    if (!dataInicio|| !dataFim) {
       alert("Por favor, preencha ambas as datas para filtrar corretamente.");
-      setFilterStartDate("");
-      setFilterEndDate("");
+      return;
     }
+  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/transferencia/buscarPorIntervaloData?dataInicio=${dataInicio}&dataFim=${dataFim}`
+        );
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchData();
   };
+  
 
   const formatDate = (date) => {
     return format(new Date(date), "dd/MM/yyyy"); // Formata a data como "dd/mm/aaaa"
@@ -94,16 +107,16 @@ const App = () => {
             <FormLabel>Data de início</FormLabel>
             <Input
               type="date"
-              value={filterStartDate}
-              onChange={(e) => setFilterStartDate(e.target.value)}
+              value={dataInicio}
+              onChange={(e) => setDataInicio(e.target.value)}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Data de fim</FormLabel>
             <Input
               type="date"
-              value={filterEndDate}
-              onChange={(e) => setFilterEndDate(e.target.value)}
+              value={dataFim}
+              onChange={(e) => setDataFim(e.target.value)}
             />
           </FormControl>
           <FormControl>
@@ -118,8 +131,11 @@ const App = () => {
             <SearchIcon />
           </Button>
         </HStack>
-        <Button colorScheme="blue" onClick={() => [setDataEdit({}), onOpen()]}>
-          <AddIcon />
+        <Button colorScheme="blue" onClick={() => [
+                /*setDataEdit({ id, dataTransferencia, valor, tipo, nomeOperador, contaId }),
+                onOpen(),*/ 
+              ]}>
+            <AddIcon />
         </Button>
         <Box overflowY="auto" height="100%">
           <Table mt="6">
@@ -156,15 +172,15 @@ const App = () => {
                     <EditIcon
                       fontSize={10}
                       onClick={() => [
-                        setDataEdit({ id, dataTransferencia, valor, tipo, nomeOperador, contaId }),
-                        onOpen(),
+                        /*setDataEdit({ id, dataTransferencia, valor, tipo, nomeOperador, contaId }),
+                        onOpen(),*/ 
                       ]}
                     />
                   </Td>
                   <Td p={0}>
                     <DeleteIcon
                       fontSize={10}
-                      onClick={() => handleRemove(id)}
+                      onClick={() => [/*handleRemove*/]}
                     />
                   </Td>
                 </Tr>

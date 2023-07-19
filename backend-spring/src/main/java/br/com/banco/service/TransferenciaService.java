@@ -1,5 +1,6 @@
 package br.com.banco.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,8 @@ public class TransferenciaService {
         return transferenciaRepository.findByNomeOperador(nomeOperador);
     }
 
-
+    public List<TransferenciaModel> buscarTransferenciasNoIntervalo(LocalDate dataInicio, LocalDate dataFim) {
+        return transferenciaRepository.findByDataTransferenciaBetween(dataInicio, dataFim);
+    }
 }
 

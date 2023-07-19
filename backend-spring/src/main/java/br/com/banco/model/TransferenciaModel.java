@@ -1,5 +1,7 @@
 package br.com.banco.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,14 +32,14 @@ public class TransferenciaModel {
     private double valor;
 	
 	@Column(name = "data_transferencia", nullable = false)
-    private String dataTransferencia;
+    private LocalDate dataTransferencia;
 
     //Construtores
 	public TransferenciaModel() {
 		
 	}
 	
-	public TransferenciaModel(Long id, ContaModel contaId, String nomeOperador, double valor, String dataTransferencia) {
+	public TransferenciaModel(Long id, ContaModel contaId, String nomeOperador, double valor, LocalDate dataTransferencia) {
 		super();
 		this.id = id;
 		this.contaId = contaId;
@@ -87,11 +89,11 @@ public class TransferenciaModel {
 		this.valor = valor;
 	}
 
-	public String getDataTransferencia() {
+	public LocalDate getDataTransferencia() {
 		return dataTransferencia;
 	}
 
-	public void setDataTransferencia(String dataTransferencia) {
+	public void setDataTransferencia(LocalDate dataTransferencia) {
 		this.dataTransferencia = dataTransferencia;
 	}
 }
